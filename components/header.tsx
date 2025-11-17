@@ -42,25 +42,26 @@ export default function Header() {
     if (ann) setAnnouncement(ann.content)
   }, [])
 
-/* ---------------------- Scroll Shrink Effect ---------------------- */
-useEffect(() => {
-  let ticking = false
-  const handle = () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const isDesktop = window.innerWidth >= 768
-        setShrink(isDesktop && window.scrollY > 30)
-        ticking = false
-      })
-      ticking = true
+  /* ---------------------- Scroll Shrink Effect ---------------------- */
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    let ticking = false
+    const handle = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isDesktop = window.innerWidth >= 768
+          setShrink(isDesktop && window.scrollY > 30)
+          ticking = false
+        })
+        ticking = true
+      }
     }
-  }
-  window.addEventListener("scroll", handle, { passive: true })
-  return () => window.removeEventListener("scroll", handle)
-}, [])
-
+    window.addEventListener("scroll", handle, { passive: true })
+    return () => window.removeEventListener("scroll", handle)
+  }, [])
 
   /* ---------------------- Layout Maths ---------------------- */
+  // navTop is used for mobile menu placement (desktop navbar sits at top)
   const navTop = shrink ? 0 : effectiveContactH
   const spacerTop = shrink ? navH : effectiveContactH + navH
   const mobileMenuTop = navTop + navH
@@ -109,13 +110,14 @@ useEffect(() => {
 
         {/* ---------------------- Main Navbar ---------------------- */}
         <div
+          /* ---------------- IMPORTANT FIX ----------------
+             use navH + effectiveContactH (states) instead of
+             reading window.innerWidth during render
+          ------------------------------------------------*/
           style={{
-  height: window.innerWidth >= 768
-    ? (shrink ? navH : navH + CONTACT_H)  // desktop
-    : navH,                               // mobile
-  top: 0
-}}
-
+            height: `${navH + (shrink ? 0 : effectiveContactH)}px`,
+            top: 0
+          }}
           className="absolute left-0 right-0 z-[80] bg-white/40 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300"
         >
           <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between relative">
