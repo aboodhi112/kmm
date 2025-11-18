@@ -6,9 +6,12 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
+// Imported Dialog/Modal components
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog" 
 import { getCMSContent, saveCMSContent } from "@/lib/cms-storage"
-import { Plus, Trash2, Upload, X } from "lucide-react"
+import { Plus, Trash2, Upload, X, Eye, Phone, Mail } from "lucide-react"
 
+// Updated ContentItem to reflect the change in cms-storage.ts
 interface ContentItem {
   id: string
   title: string
@@ -25,9 +28,10 @@ interface ContentItem {
   established?: string
   programs?: { name: string; description: string }[]
   facilities?: string[]
-  faculty?: { name: string; designation: string; photo?: string }[]
+  // Updated faculty type
+  faculty?: { name: string; designation: string; photo?: string; email?: string; phone?: string }[] 
   achievements?: string[]
-  image?: string // Added for image storage
+  image?: string
 }
 
 export default function ContentManager({ activeTab }: { activeTab: string }) {
@@ -48,15 +52,16 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
     facilities: [],
     faculty: [],
     achievements: [],
-    image: "", // Added for image storage
+    image: "",
   })
 
   const [newProgram, setNewProgram] = useState({ name: "", description: "" })
-  const [newFaculty, setNewFaculty] = useState({ name: "", designation: "", photo: "" })
+  // UPDATED: Added email and phone fields to newFaculty state
+  const [newFaculty, setNewFaculty] = useState({ name: "", designation: "", photo: "", email: "", phone: "" })
   const [newFacility, setNewFacility] = useState("")
   const [newAchievement, setNewAchievement] = useState("")
-  /* Added image upload state */
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false) // State for Preview Modal
 
   const isEventsTab = activeTab === "events"
   const isNewsTab = activeTab === "news"
@@ -84,11 +89,12 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
       facilities: [],
       faculty: [],
       achievements: [],
-      image: "", // Reset image when tab changes
+      image: "",
     })
+    // Also reset the new faculty state when the tab changes
+    setNewFaculty({ name: "", designation: "", photo: "", email: "", phone: "" })
   }, [activeTab])
 
-  /* Added image upload handler */
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -116,14 +122,23 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
   const saveContent = () => {
     let updatedItems: ContentItem[]
 
+    // Ensure array fields are not undefined when saving
+    const dataToSave = {
+      ...formData,
+      programs: formData.programs || [],
+      facilities: formData.facilities || [],
+      faculty: formData.faculty || [],
+      achievements: formData.achievements || [],
+    }
+
     if (editingId) {
       updatedItems = items.map((item) =>
-        item.id === editingId ? { ...item, ...formData, updatedAt: new Date().toISOString() } : item,
+        item.id === editingId ? { ...item, ...dataToSave, updatedAt: new Date().toISOString() } : item,
       )
     } else {
       const newItem: ContentItem = {
         id: Date.now().toString(),
-        ...formData,
+        ...dataToSave,
         section: activeTab,
         updatedAt: new Date().toISOString(),
       }
@@ -132,25 +147,33 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
 
     setItems(updatedItems)
     saveCMSContent(activeTab, updatedItems)
-    setFormData({
-      title: "",
-      content: "",
-      date: "",
-      category: "",
-      description: "",
-      overview: "",
-      vision: "",
-      mission: "",
-      scope: "",
-      established: "",
-      programs: [],
-      facilities: [],
-      faculty: [],
-      achievements: [],
-      image: "", // Clear image after save
-    })
-    setEditingId(null)
+    // Clear form after save
+    resetForm()
   }
+  
+  // Helper function to reset the form state
+  const resetForm = () => {
+      setFormData({
+        title: "",
+        content: "",
+        date: "",
+        category: "",
+        description: "",
+        overview: "",
+        vision: "",
+        mission: "",
+        scope: "",
+        established: "",
+        programs: [],
+        facilities: [],
+        faculty: [],
+        achievements: [],
+        image: "",
+      })
+      setEditingId(null)
+      setNewFaculty({ name: "", designation: "", photo: "", email: "", phone: "" })
+  }
+
 
   const deleteContent = (id: string) => {
     const updatedItems = items.filter((item) => item.id !== id)
@@ -158,12 +181,16 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
     saveCMSContent(activeTab, updatedItems)
   }
 
-  /* Updated handleEdit to include all fields */
+  /*
+   * FIX APPLIED HERE:
+   * Ensure all optional fields are handled correctly when loading for edit,
+   * especially complex arrays like programs, facilities, and faculty.
+   */
   const handleEdit = (item: ContentItem) => {
     setEditingId(item.id)
     setFormData({
-      title: item.title,
-      content: item.content,
+      title: item.title || "",
+      content: item.content || "",
       date: item.date || "",
       category: item.category || "",
       description: item.description || "",
@@ -172,11 +199,11 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
       mission: item.mission || "",
       scope: item.scope || "",
       established: item.established || "",
-      programs: item.programs || [],
-      facilities: item.facilities || [],
-      faculty: item.faculty || [],
-      achievements: item.achievements || [],
-      image: item.image || "", // Load existing image
+      programs: item.programs || [], // Ensure this defaults to an empty array
+      facilities: item.facilities || [], // Ensure this defaults to an empty array
+      faculty: item.faculty || [], // Ensure this defaults to an empty array
+      achievements: item.achievements || [], // Ensure this defaults to an empty array
+      image: item.image || "",
     })
   }
 
@@ -203,7 +230,8 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
         ...prev,
         faculty: [...prev.faculty, newFaculty],
       }))
-      setNewFaculty({ name: "", designation: "", photo: "" })
+      // Reset newFaculty, including the new fields
+      setNewFaculty({ name: "", designation: "", photo: "", email: "", phone: "" })
     }
   }
 
@@ -248,11 +276,122 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
     }))
   }
 
+  // --- Preview Modal Component ---
+
+  const PreviewModal = () => {
+    const data = {
+      ...formData,
+      // Use the currently edited content if editing, otherwise use formData (new item)
+      // This part is simplified for previewing the currently edited item.
+      // For a true preview, you would render the item as it would look on the public page.
+    }
+    
+    // Determine the content to display in the preview
+    const previewItem = editingId ? items.find(item => item.id === editingId) : data;
+
+    if (!previewItem) return null;
+
+    // A simple function to render the structured department fields
+    const renderDepartmentDetails = (item: ContentItem) => (
+      <div className="p-4 bg-gray-50 rounded-lg space-y-3">
+        {item.overview && (
+          <div>
+            <h4 className="font-bold text-base border-b pb-1 mb-1">Overview</h4>
+            <p className="text-sm whitespace-pre-wrap">{item.overview}</p>
+          </div>
+        )}
+        {(item.vision || item.mission) && (
+          <div className="grid grid-cols-2 gap-4">
+            {item.vision && <div><h4 className="font-bold text-base">Vision</h4><p className="text-sm whitespace-pre-wrap">{item.vision}</p></div>}
+            {item.mission && <div><h4 className="font-bold text-base">Mission</h4><p className="text-sm whitespace-pre-wrap">{item.mission}</p></div>}
+          </div>
+        )}
+        {item.programs && item.programs.length > 0 && (
+          <div>
+            <h4 className="font-bold text-base border-b pb-1 mb-2">Programs</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              {item.programs.map((p, i) => (
+                <li key={i} className="text-sm font-medium">
+                  {p.name}
+                  <p className="text-xs text-muted-foreground ml-2">{p.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {item.faculty && item.faculty.length > 0 && (
+          <div>
+            <h4 className="font-bold text-base border-b pb-1 mb-2">Faculty ({item.faculty.length})</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {item.faculty.map((f, i) => (
+                <div key={i} className="flex items-center gap-3 border p-2 rounded-lg">
+                  {f.photo && <img src={f.photo} alt={f.name} className="w-10 h-10 rounded-full object-cover" />}
+                  <div>
+                    <p className="font-semibold text-sm">{f.name}</p>
+                    <p className="text-xs text-muted-foreground">{f.designation}</p>
+                    {f.email && <p className="text-xs flex items-center gap-1 text-blue-600"><Mail className="w-3 h-3"/>{f.email}</p>}
+                    {f.phone && <p className="text-xs flex items-center gap-1 text-green-600"><Phone className="w-3 h-3"/>{f.phone}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+
+
+    return (
+      <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">
+              Preview: {previewItem.title || "Untitled Content"}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 pt-4">
+            {/* Conditional Image Display */}
+            {previewItem.image && (
+              <img
+                src={previewItem.image}
+                alt="Content Preview"
+                className="w-full h-48 object-cover rounded-lg shadow-md"
+              />
+            )}
+
+            {/* Title and Metadata */}
+            <h3 className="text-3xl font-extrabold text-primary">{previewItem.title}</h3>
+            {(isEventsTab || isNewsTab) && (
+              <p className="text-lg text-muted-foreground">
+                <span className="font-semibold">{previewItem.date}</span>
+                {previewItem.category && ` | Category: ${previewItem.category}`}
+              </p>
+            )}
+
+            {/* Description / Main Content */}
+            {previewItem.description && (
+              <p className="text-xl font-medium text-gray-700">{previewItem.description}</p>
+            )}
+            <p className="text-base whitespace-pre-wrap">{previewItem.content}</p>
+
+            {/* Department-Specific Content */}
+            {isDepartmentsTab && renderDepartmentDetails(previewItem)}
+
+            <p className="text-xs text-right text-gray-400 mt-6">
+              Preview of content created/updated on: {new Date().toLocaleString()}
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <Card className="p-6 bg-card border-l-4 border-yellow-accent">
         <h2 className="text-xl font-bold mb-4">{editingId ? "Edit" : "Add New"} Content</h2>
         <div className="space-y-4">
+          {/* ... [Title Input, Announcement ID Input remains the same] ... */}
           {!isAnnouncementsTab && (
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
@@ -284,7 +423,7 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
               />
             </div>
           )}
-
+          {/* ... [Image Upload Field remains the same] ... */}
           {(isEventsTab || isNewsTab || isAboutTab || isDepartmentsTab) && (
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">Image</label>
@@ -321,6 +460,7 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
             </div>
           )}
 
+          {/* ... [Event/News Fields (Date, Category, Description) remains the same] ... */}
           {(isEventsTab || isNewsTab) && (
             <>
               <div>
@@ -351,6 +491,8 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
             </>
           )}
 
+
+          {/* Department Fields */}
           {isDepartmentsTab && (
             <>
               <div>
@@ -402,7 +544,7 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
                 />
               </div>
 
-              {/* Programs Section */}
+              {/* Programs Section (Remains the same) */}
               <div className="border border-yellow-accent/30 rounded-lg p-4">
                 <label className="block text-sm font-medium text-foreground mb-3">Programs Offered</label>
                 <div className="space-y-3 mb-3">
@@ -445,7 +587,7 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
                 </div>
               </div>
 
-              {/* Facilities Section */}
+              {/* Facilities Section (Remains the same) */}
               <div className="border border-yellow-accent/30 rounded-lg p-4">
                 <label className="block text-sm font-medium text-foreground mb-3">Facilities</label>
                 <div className="space-y-2 mb-3">
@@ -479,6 +621,7 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
                 </div>
               </div>
 
+              {/* Faculty Section (UPDATED: Added Email/Phone fields) */}
               <div className="border border-yellow-accent/30 rounded-lg p-4">
                 <label className="block text-sm font-medium text-foreground mb-3">Faculty Members</label>
                 <div className="space-y-3 mb-3">
@@ -498,6 +641,8 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
                         <div className="flex-1">
                           <p className="font-semibold text-sm">{member.name}</p>
                           <p className="text-xs text-muted-foreground">{member.designation}</p>
+                          {member.email && <p className="text-xs flex items-center gap-1 text-blue-600"><Mail className="w-3 h-3"/>{member.email}</p>}
+                          {member.phone && <p className="text-xs flex items-center gap-1 text-green-600"><Phone className="w-3 h-3"/>{member.phone}</p>}
                         </div>
                       </div>
                       <Button
@@ -524,6 +669,20 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
                     placeholder="Designation (e.g., Head of Department)"
                     className="text-sm"
                   />
+                  <div className="grid grid-cols-2 gap-2">
+                    <Input
+                      value={newFaculty.email}
+                      onChange={(e) => setNewFaculty((prev) => ({ ...prev, email: e.target.value }))}
+                      placeholder="Email (optional)"
+                      className="text-sm"
+                    />
+                    <Input
+                      value={newFaculty.phone}
+                      onChange={(e) => setNewFaculty((prev) => ({ ...prev, phone: e.target.value }))}
+                      placeholder="Phone (optional)"
+                      className="text-sm"
+                    />
+                  </div>
                   <div className="flex items-center gap-3">
                     <label className="flex items-center gap-2 px-3 py-2 bg-muted rounded-lg cursor-pointer hover:bg-muted/80 transition text-sm">
                       <Upload className="w-4 h-4" />
@@ -560,7 +719,7 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
                 </div>
               </div>
 
-              {/* Achievements Section */}
+              {/* Achievements Section (Remains the same) */}
               <div className="border border-yellow-accent/30 rounded-lg p-4">
                 <label className="block text-sm font-medium text-foreground mb-3">Achievements</label>
                 <div className="space-y-2 mb-3">
@@ -596,6 +755,7 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
             </>
           )}
 
+          {/* Main Content Area (Remains the same) */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
               {isAnnouncementsTab
@@ -624,32 +784,25 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
             />
           </div>
           <div className="flex gap-2">
-            <Button onClick={saveContent} className="bg-green-600 hover:bg-green-700 border-b-4 border-yellow-accent">
+            <Button 
+                onClick={saveContent} 
+                className="bg-green-600 hover:bg-green-700 border-b-4 border-yellow-accent"
+            >
               {editingId ? "Update" : "Add"} Content
             </Button>
+            
+            {/* NEW FEATURE: Preview Button */}
+            <Button
+              variant="secondary"
+              onClick={() => setIsPreviewOpen(true)}
+            >
+              <Eye className="w-4 h-4 mr-2" /> Preview
+            </Button>
+            
             {editingId && (
               <Button
                 variant="outline"
-                onClick={() => {
-                  setEditingId(null)
-                  setFormData({
-                    title: "",
-                    content: "",
-                    date: "",
-                    category: "",
-                    description: "",
-                    overview: "",
-                    vision: "",
-                    mission: "",
-                    scope: "",
-                    established: "",
-                    programs: [],
-                    facilities: [],
-                    faculty: [],
-                    achievements: [],
-                    image: "", // Clear image on cancel
-                  })
-                }}
+                onClick={resetForm}
               >
                 Cancel
               </Button>
@@ -657,6 +810,9 @@ export default function ContentManager({ activeTab }: { activeTab: string }) {
           </div>
         </div>
       </Card>
+      
+      {/* Render the Preview Modal */}
+      <PreviewModal />
 
       <div className="space-y-4">
         <h2 className="text-xl font-bold border-l-4 border-yellow-accent pl-3">Manage Content</h2>

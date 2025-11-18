@@ -16,7 +16,8 @@ interface CMSContent {
   established?: string
   programs?: { name: string; description: string }[]
   facilities?: string[]
-  faculty?: { name: string; designation: string; photo?: string }[]
+  // UPDATED: Added email and phone to the faculty interface
+  faculty?: { name: string; designation: string; photo?: string; email?: string; phone?: string }[] 
   achievements?: string[]
 }
 
