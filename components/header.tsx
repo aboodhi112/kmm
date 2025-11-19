@@ -7,10 +7,13 @@ import { getCMSByTitle } from "@/lib/cms-storage"
 const ANN_H = 28
 const CONTACT_H = 41
 const NAV_DESKTOP = 69
-const NAV_MOBILE = 37
 
+const NAV_MOBILE_EXPANDED = 58
+const NAV_MOBILE_SHRUNK = 38
+
+// UPDATED: Changed md: styling to lg: to prevent desktop menu overlap on tablets/landscape mobile
 const linkClass =
-  "relative text-sm font-semibold transition-all duration-300 hover:text-primary md:after:content-[''] md:after:absolute md:after:-bottom-0.5 md:after:left-1/2 md:after:-translate-x-1/2 md:after:h-[2px] md:after:w-0 md:after:bg-primary md:after:rounded-full md:after:transition-all md:after:duration-300 md:hover:after:w-3/5"
+  "relative text-sm font-semibold transition-all duration-300 hover:text-primary lg:after:content-[''] lg:after:absolute lg:after:-bottom-0.5 lg:after:left-1/2 lg:after:-translate-x-1/2 lg:after:h-[2px] lg:after:w-0 lg:after:bg-primary lg:after:rounded-full lg:after:transition-all lg:after:duration-300 lg:hover:after:w-3/5"
 
 const mobileLink = "text-base font-semibold active:scale-95 transition-transform"
 
@@ -21,6 +24,7 @@ export default function Header() {
     "KMM College of Arts and Science has been NAAC Accredited with B Grade."
   )
   const [shrink, setShrink] = useState(false)
+  
   const [navH, setNavH] = useState(NAV_DESKTOP)
   const [effectiveContactH, setEffectiveContactH] = useState(CONTACT_H)
 
@@ -28,8 +32,9 @@ export default function Header() {
   useEffect(() => {
     if (typeof window === "undefined") return
     const update = () => {
-      setNavH(window.innerWidth < 768 ? NAV_MOBILE : NAV_DESKTOP)
-      setEffectiveContactH(window.innerWidth < 768 ? 0 : CONTACT_H)
+      // UPDATED: Check for < 1024 (lg) instead of 768 (md)
+      setNavH(window.innerWidth < 1024 ? NAV_MOBILE_EXPANDED : NAV_DESKTOP)
+      setEffectiveContactH(window.innerWidth < 1024 ? 0 : CONTACT_H)
     }
     update()
     window.addEventListener("resize", update)
@@ -49,8 +54,7 @@ export default function Header() {
     const handle = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const isDesktop = window.innerWidth >= 768
-          setShrink(isDesktop && window.scrollY > 30)
+          setShrink(window.scrollY > 30)
           ticking = false
         })
         ticking = true
@@ -61,10 +65,16 @@ export default function Header() {
   }, [])
 
   /* ---------------------- Layout Maths ---------------------- */
-  // navTop is used for mobile menu placement (desktop navbar sits at top)
+  const isMobile = effectiveContactH === 0
+
+  const currentNavHeight = isMobile 
+    ? (shrink ? NAV_MOBILE_SHRUNK : NAV_MOBILE_EXPANDED)
+    : (navH + (shrink ? 0 : effectiveContactH))
+
   const navTop = shrink ? 0 : effectiveContactH
-  const spacerTop = shrink ? navH : effectiveContactH + navH
-  const mobileMenuTop = navTop + navH
+  const spacerTop = isMobile ? NAV_MOBILE_EXPANDED : (effectiveContactH + navH)
+  
+  const mobileMenuTop = currentNavHeight
   const mobileMenuHeight = `calc(100vh - ${mobileMenuTop}px)`
   const computedLogoTop = shrink ? 8 : effectiveContactH - 48
 
@@ -91,7 +101,8 @@ export default function Header() {
         {/* ---------------------- Contact Bar (Desktop) ---------------------- */}
         <div
           style={{ height: CONTACT_H, top: 0 }}
-          className={`hidden md:flex absolute left-0 right-6 text-secondary transition-all duration-300 ${
+          // UPDATED: hidden md:flex -> hidden lg:flex
+          className={`hidden lg:flex absolute left-0 right-6 text-secondary transition-all duration-300 ${
             shrink ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
           } items-center z-[170]`}
         >
@@ -110,22 +121,21 @@ export default function Header() {
 
         {/* ---------------------- Main Navbar ---------------------- */}
         <div
-          /* ---------------- IMPORTANT FIX ----------------
-             use navH + effectiveContactH (states) instead of
-             reading window.innerWidth during render
-          ------------------------------------------------*/
           style={{
-            height: `${navH + (shrink ? 0 : effectiveContactH)}px`,
+            height: `${currentNavHeight}px`,
             top: 0
           }}
           className="absolute left-0 right-0 z-[80] bg-white/40 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300"
         >
           <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between relative">
 
-            {/* ---------------------- Floating Logo ---------------------- */}
+            {/* ---------------------- Floating Logo (Desktop) ---------------------- */}
             <div
-              className={`hidden md:block absolute z-[150] ${
-                shrink ? "scale-200 -translate-x-5 -translate-y-5" : "scale-300 translate-y-4"
+              // UPDATED: hidden md:block -> hidden lg:block
+              className={`hidden lg:block absolute z-[150] ${
+                shrink 
+                  ? "scale-[2.2] -translate-x-10 -translate-y-5"
+                  : "scale-[3.2] -translate-x-16 translate-y-4"
               } transition-all duration-300`}
               style={{
                 left: 24,
@@ -142,7 +152,8 @@ export default function Header() {
 
             {/* ---------------------- Desktop Links ---------------------- */}
             <nav
-              className={`hidden md:flex gap-6 xl:gap-8 items-center justify-end w-full pr-30 ${
+              // UPDATED: hidden md:flex -> hidden lg:flex
+              className={`hidden lg:flex gap-6 xl:gap-8 items-center justify-end w-full pr-30 ${
                 shrink ? "pt-0" : "pt-6"
               } scale-120 transition-all duration-300`}
             >
@@ -182,10 +193,16 @@ export default function Header() {
 
             {/* ---------------------- Mobile Nav ---------------------- */}
             <div
-              className="md:hidden flex items-center justify-between w-full px-2 relative z-[90] h-10%"
-              style={{ transition: "height 0.3s" }}
+              // UPDATED: md:hidden -> lg:hidden
+              className="lg:hidden flex items-center justify-between w-full px-2 relative z-[90] h-full"
             >
-              <div className="relative w-24 h-16 scale-180 -translate-x-4">
+              <div 
+                className={`relative w-24 h-16 transition-all duration-300 origin-left ${
+                  shrink 
+                    ? "scale-[2.0] -translate-x-10" 
+                    : "scale-[2.75] translate-y-1 -translate-x-20"
+                }`}
+              >
                 <Image src="/kmm-college-logo.png" alt="KMM College Logo" fill className="object-contain" priority />
               </div>
 
@@ -215,7 +232,8 @@ export default function Header() {
         {/* ---------------------- Mobile Menu ---------------------- */}
         {(isOpen || closing) && (
           <div
-            className={`fixed left-0 right-0 bg-card border-b shadow-xl md:hidden overflow-auto ${
+            // UPDATED: md:hidden -> lg:hidden
+            className={`fixed left-0 right-0 bg-card border-b shadow-xl lg:hidden overflow-auto ${
               closing ? "menuExit" : "animate-[fadeSlide_.45s_cubic-bezier(0.4,0.0,0.2,1)]"
             }`}
             style={{ top: mobileMenuTop, height: mobileMenuHeight, zIndex: 70 }}
