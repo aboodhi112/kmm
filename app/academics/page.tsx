@@ -7,9 +7,6 @@ import { Calendar, Download } from "lucide-react"
 import { motion, useInView } from "framer-motion"
 import { getCMSContent } from "@/lib/cms-storage"
 
-/* ============================================================
-   COUNTER CARD — FIXED VERSION (NO ERRORS)
-   ============================================================ */
 function CounterCard({ value, suffix = "", label }: { value: number; suffix?: string; label: string }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, amount: 0.4 })
@@ -50,9 +47,6 @@ function CounterCard({ value, suffix = "", label }: { value: number; suffix?: st
   )
 }
 
-/* ============================================================
-   MAIN PAGE
-   ============================================================ */
 
 interface Department {
   name: string
@@ -76,19 +70,20 @@ export default function AcademicsPage() {
   }, [])
 
   const ugPrograms = [
-    { name: "B.A. English", duration: "3 Years" },
-    { name: "B.A. History", duration: "3 Years" },
-    { name: "B.A. Economics", duration: "3 Years" },
-    { name: "B.Sc. Mathematics", duration: "3 Years" },
-    { name: "B.Sc. Physics", duration: "3 Years" },
-    { name: "B.Sc. Chemistry", duration: "3 Years" },
+    { name: "B.Com Honours", duration: "4 Years" },
+    { name: "BBA Honours", duration: "4 Years" },
+    { name: "BA Animation & Graphic Design Honours", duration: "4 Years" },
+    { name: "BCA Honours", duration: "4 Years" },
+
   ]
 
   const pgPrograms = [
-    { name: "M.A. English", duration: "2 Years" },
-    { name: "M.A. History", duration: "2 Years" },
-    { name: "M.Sc. Mathematics", duration: "2 Years" },
+    { name: null, duration: null },
   ]
+
+  const validPrograms = pgPrograms
+  ? pgPrograms.filter(program => program.name)
+  : [];
 
   return (
     <motion.div className="min-h-screen bg-background" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -163,10 +158,10 @@ export default function AcademicsPage() {
 
               <div className="space-y-3 text-gray-700">
                 {[
-                  { label: "Semester Start", value: "July 15, 2024" },
-                  { label: "Mid-term Exams", value: "Sept 20–30, 2024" },
-                  { label: "End Semester Exams", value: "Dec 1–15, 2024" },
-                  { label: "Semester Break", value: "Dec 16 – Jan 5" },
+                  { label: "Semester Start", value: "Nov 27, 2025" },
+                  { label: "Mid-term Exams", value: "Jan 20–30, 2025" },
+                  { label: "End Semester Exams", value: "Mar 1–31, 2025" },
+                  { label: "Semester Break", value: "Mar 31 – May 31" },
                 ].map((item, i) => (
                   <motion.div
                     key={i}
@@ -182,13 +177,15 @@ export default function AcademicsPage() {
               </div>
             </motion.div>
 
-            <motion.button
-              className="mt-6 flex items-center gap-2 bg-blue-900 text-white px-6 py-3 rounded-lg hover:scale-[1.03] hover:bg-blue-800 transition-all"
-              whileTap={{ scale: 0.95 }}
-            >
-              <Download className="w-5 h-5" />
-              Download Full Calendar (PDF)
-            </motion.button>
+           <motion.a
+  href="/calendar.pdf" 
+  download
+  className="mt-6 inline-flex items-center gap-2 bg-blue-900 text-white px-6 py-3 rounded-lg hover:scale-[1.03] hover:bg-blue-800 transition-all"
+  whileTap={{ scale: 0.95 }}
+>
+  <Download className="w-5 h-5" />
+  Download Full Calendar (PDF)
+</motion.a>
           </div>
         </motion.div>
 
@@ -225,16 +222,23 @@ export default function AcademicsPage() {
             whileInView="show"
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.15 } } }}
           >
-            {pgPrograms.map((program, idx) => (
-              <motion.div
-                key={idx}
-                className="bg-white p-6 rounded-lg shadow-md border-2 border-yellow-400"
-                variants={{ hidden: { opacity: 0, y: 25 }, show: { opacity: 1, y: 0, transition: { duration: 0.45 } } }}
-              >
-                <h3 className="text-lg font-bold text-blue-900 mb-2">{program.name}</h3>
-                <p className="text-gray-600">Duration: {program.duration}</p>
-              </motion.div>
-            ))}
+            {/* ---------------------- PG Programs List ---------------------- */}
+{validPrograms.length > 0 ? (
+  validPrograms.map((program, idx) => (
+    <motion.div
+      key={idx}
+      className="bg-white p-6 rounded-lg shadow-md border-2 border-yellow-400"
+      variants={{ hidden: { opacity: 0, y: 25 }, show: { opacity: 1, y: 0, transition: { duration: 0.45 } } }}
+    >
+      <h3 className="text-lg font-bold text-blue-900 mb-2">{program.name}</h3>
+      <p className="text-gray-600">Duration: {program.duration}</p>
+    </motion.div>
+  ))
+) : (
+  <div className="w-full text-center py-8">
+    <p className="text-xl text-gray-500 font-semibold">No PG programs offered</p>
+  </div>
+)}
           </motion.div>
         </motion.div>
 
@@ -289,8 +293,8 @@ export default function AcademicsPage() {
 
           <div className="grid md:grid-cols-3 gap-6">
             <CounterCard value={95} suffix="%" label="Pass Rate" />
-            <CounterCard value={50} suffix="+" label="Qualified Faculty" />
-            <CounterCard value={15} suffix="+" label="Add-on Courses" />
+            <CounterCard value={23} suffix="" label="Qualified Faculty" />
+            <CounterCard value={2} suffix="" label="Add-on Courses" />
           </div>
         </motion.div>
 

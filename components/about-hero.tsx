@@ -28,7 +28,7 @@ export default function AboutHero() {
           </h1>
 
           <p className="text-lg md:text-xl text-blue-100 leading-relaxed">
-            KMM College of Arts & Science stands as a beacon of academic excellence
+            KMM Collage, Thrikkakara, Vazhakkala stands as a beacon of academic excellence
             and innovation, dedicated to empowering students with knowledge, skills,
             and values to thrive in their careers and contribute to society.
           </p>

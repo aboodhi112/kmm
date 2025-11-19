@@ -1,85 +1,120 @@
 "use client"
 
 import {
-  Mic,
   BookOpen,
-  Code,
-  Camera,
-  Music,
-  Microscope,
   Palette,
-  Drama,
   Leaf,
   Trophy,
-  Globe,
   Briefcase,
+  TrendingUp,
+  GraduationCap,
+  Handshake,
+  AtSign,
+  Lightbulb,
+  HelpCircle,
+  Film,
+  CheckSquare,
+  ShieldOff,
+  Zap,
+  FileText,
+  Users,
 } from "lucide-react"
 
 import { motion } from "framer-motion"
 
 export default function ClubsClient() {
   const clubs = [
-    {
-      name: "Debate Club",
-      description: "Forum for developing public speaking and critical thinking skills through debates and discussions.",
-      icon: Mic,
-    },
-    {
-      name: "Literary Club",
-      description: "Platform for creative writing, poetry, storytelling, and literature enthusiasts.",
-      icon: BookOpen,
-    },
-    {
-      name: "Coding Club",
-      description: "Community for programming enthusiasts to learn, collaborate, and build projects together.",
-      icon: Code,
-    },
-    {
-      name: "Photography Club",
-      description: "Explore the art of photography with fellow enthusiasts and professional photographers.",
-      icon: Camera,
-    },
-    {
-      name: "Music Club",
-      description: "Platform for musicians to perform, learn new instruments, and appreciate diverse music genres.",
-      icon: Music,
-    },
-    {
-      name: "Science Club",
-      description: "Engage in scientific activities, experiments, and exploration of scientific concepts.",
-      icon: Microscope,
-    },
-    {
-      name: "Art & Craft Club",
-      description: "Express creativity through various art forms including painting, sculpting, and handicrafts.",
-      icon: Palette,
-    },
-    {
-      name: "Drama Club",
-      description: "Participate in theatrical productions, skits, and dramatic performances.",
-      icon: Drama,
-    },
-    {
-      name: "Environmental Club",
-      description: "Work towards environmental conservation and sustainability initiatives on campus.",
-      icon: Leaf,
-    },
-    {
-      name: "Sports Club",
-      description: "Organize and participate in various indoor and outdoor sporting activities.",
-      icon: Trophy,
-    },
-    {
-      name: "Cultural Club",
-      description: "Celebrate diverse cultures through events, festivals, and cultural exchange programs.",
-      icon: Globe,
-    },
-    {
-      name: "Entrepreneurship Club",
-      description: "Nurture business acumen and startup mentality among student entrepreneurs.",
-      icon: Briefcase,
-    },
-  ]
+  {
+    name: "Placement Cell",
+    description: "Facilitates job training, career counseling, and campus recruitment drives for graduating students.",
+    icon: Briefcase,
+  },
+  {
+    name: "Skill Development Cell",
+    description: "Organizes workshops and courses to enhance student soft skills, technical proficiency, and professional competencies.",
+    icon: TrendingUp,
+  },
+  {
+    name: "Scholarship Supporting Cell",
+    description: "Provides information and assistance to students regarding eligibility, application, and acquisition of various scholarships.",
+    icon: GraduationCap,
+  },
+  {
+    name: "Women’s Club",
+    description: "Promotes gender sensitivity, empowerment, and organizes activities addressing issues specific to women.",
+    icon: Users
+  },
+  {
+    name: "Sports Club",
+    description: "Organizes and manages various indoor and outdoor athletic events, tournaments, and recreational sports activities.",
+    icon: Trophy,
+  },
+  {
+    name: "Mentoring & Counselling Cell",
+    description: "Offers guidance and support for academic, emotional, and psychological well-being through faculty mentoring and professional counseling.",
+    icon: Handshake,
+  },
+  {
+    name: "Social Media Club",
+    description: "Manages the institution’s digital presence, creates content, and promotes college events and news online.",
+    icon: AtSign,
+  },
+  {
+    name: "Literary & E-Magazine Club",
+    description: "Fosters creative writing, reading, poetry, and is responsible for publishing the college's literary e-magazine.",
+    icon: BookOpen,
+  },
+  {
+    name: "ED Club (Entrepreneurship Development Club)",
+    description: "Nurtures innovative thinking, business acumen, and provides a platform for aspiring student entrepreneurs.",
+    icon: Lightbulb,
+  },
+  {
+    name: "Nature & Tourism Club",
+    description: "Promotes environmental awareness, sustainability, and organizes educational trips and local tourism activities.",
+    icon: Leaf,
+  },
+  {
+    name: "Quiz Club",
+    description: "Organizes quizzes, trivia competitions, and knowledge-based events to enhance general and academic awareness.",
+    icon: HelpCircle,
+  },
+  {
+    name: "Animation Film Club",
+    description: "Explores the art of animation, film-making, storytelling, and hosts screenings and production workshops.",
+    icon: Film,
+  },
+  {
+    name: "Internal Assessment Cell",
+    description: "Responsible for coordinating and managing the process of continuous internal evaluation and grading of students.",
+    icon: CheckSquare,
+  },
+  {
+    name: "Anti-Ragging & Discipline Cell",
+    description: "Ensures a safe campus environment, enforces disciplinary rules, and monitors compliance with anti-ragging regulations.",
+    icon: ShieldOff,
+  },
+  {
+    name: "Arts Club",
+    description: "A hub for various fine arts activities including painting, sketching, crafting, and organizing cultural showcases.",
+    icon: Palette,
+  },
+  {
+    name: "Yoga Club",
+    description: "Promotes physical and mental health through regular yoga, meditation, and wellness sessions.",
+    icon: Zap, // or Lotus
+  },
+  {
+    name: "Examination Cell",
+    description: "Manages all aspects of internal and external examinations, including scheduling, conduct, and result processing.",
+    icon: FileText,
+  },
+  {
+    name: "Staff Recreation & Development Cell",
+    description: "Organizes recreational activities for staff and coordinates professional development programs and training.",
+    icon: Users, 
+  },
+];
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-16 relative">

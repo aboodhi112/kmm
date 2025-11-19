@@ -1,46 +1,58 @@
 "use client"
 
-import { Shield, Users, FileText, Heart, Brain, HandHeart } from "lucide-react"
+import {
+  BookOpen,
+  Palette,
+  Leaf,
+  Trophy,
+  Briefcase,
+  TrendingUp,
+  GraduationCap,
+  Handshake,
+  AtSign,
+  Lightbulb,
+  HelpCircle,
+  Film,
+  CheckSquare,
+  ShieldOff,
+  Zap,
+  FileText,
+  Users,
+} from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function CellsClient() {
   const cells = [
     {
-      name: "Anti-Ragging Cell",
-      description: "Committed to creating a safe, harassment-free campus environment for all students.",
-      icon: Shield,
-      contact: "anti-ragging@kmm.edu.in",
-    },
-    {
-      name: "Gender Sensitization Cell",
-      description: "Promotes gender equality and creates awareness about gender-related issues on campus.",
-      icon: Users,
-      contact: "gender-cell@kmm.edu.in",
-    },
-    {
-      name: "Grievance Redressal Cell",
-      description: "Addresses student grievances and concerns through a fair and transparent process.",
-      icon: FileText,
-      contact: "grievance@kmm.edu.in",
-    },
-    {
-      name: "Women's Empowerment Cell",
-      description: "Supports women students through mentorship, workshops, and empowerment programs.",
-      icon: Heart,
-      contact: "women-cell@kmm.edu.in",
-    },
-    {
-      name: "Mental Health & Wellness Cell",
-      description: "Provides counseling support and mental health resources for student well-being.",
-      icon: Brain,
-      contact: "wellness@kmm.edu.in",
-    },
-    {
-      name: "Social Responsibility Cell",
-      description: "Organizes community outreach and social service programs beyond campus.",
-      icon: HandHeart,
-      contact: "social-cell@kmm.edu.in",
-    },
+    name: "Placement Cell",
+    description: "Facilitates job training, career counseling, and campus recruitment drives for graduating students.",
+    icon: Briefcase,
+  },
+  {
+    name: "Skill Development Cell",
+    description: "Organizes workshops and courses to enhance student soft skills, technical proficiency, and professional competencies.",
+    icon: TrendingUp,
+  },
+  {
+    name: "Scholarship Supporting Cell",
+    description: "Provides information and assistance to students regarding eligibility, application, and acquisition of various scholarships.",
+    icon: GraduationCap,
+  },
+  {
+    name: "Women’s Club",
+    description: "Promotes gender sensitivity, empowerment, and organizes activities addressing issues specific to women.",
+    icon: Users
+  },
+  {
+    name: "Sports Club",
+    description: "Organizes and manages various indoor and outdoor athletic events, tournaments, and recreational sports activities.",
+    icon: Trophy,
+  },
+  {
+    name: "Mentoring & Counselling Cell",
+    description: "Offers guidance and support for academic, emotional, and psychological well-being through faculty mentoring and professional counseling.",
+    icon: Handshake,
+  },
   ]
 
   return (
@@ -82,7 +94,6 @@ export default function CellsClient() {
               </div>
               <h3 className="text-lg font-bold text-blue-900 mb-2">{cell.name}</h3>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">{cell.description}</p>
-              <p className="text-sm text-blue-600 font-semibold">📧 {cell.contact}</p>
             </motion.div>
           )
         })}

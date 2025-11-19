@@ -16,7 +16,7 @@ export default function AboutStory() {
     setContent({
       paragraph1:
         aboutContent.find((item) => item.title.includes("Paragraph 1"))?.content ||
-        "KMM College of Arts & Science, Thrikkakara Vazhakkala, operates under the esteemed KMM Group of Institutions, affiliated with Mahatma Gandhi University, Kottayam...",
+        "KMM Collage, Thrikkakara, Vazhakkala, Thrikkakara Vazhakkala, operates under the esteemed KMM Group of Institutions, affiliated with Mahatma Gandhi University, Kottayam...",
       paragraph2:
         aboutContent.find((item) => item.title.includes("Paragraph 2"))?.content ||
         "KMM College commenced its academic journey in 2021-22...",
@@ -105,8 +105,6 @@ export default function AboutStory() {
               {[
                 "AICTE-approved, self-financing institution",
                 "Affiliated with M.G. University, Kottayam",
-                "Part of Jai Bharath Educational Foundation since 2002",
-                "NAAC Accredited with B Grade",
                 "Highest enrollment in inaugural year",
                 "Highly qualified and dedicated faculty",
                 "Advanced infrastructure and facilities",

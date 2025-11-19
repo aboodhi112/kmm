@@ -39,7 +39,7 @@ export default function AdmissionsClientPage() {
           <div className="absolute bottom-0 left-0 w-16 h-16 bg-yellow-accent/20 rounded-tr-full" />
           <h2 className="text-2xl font-bold text-red-600 mb-4 relative z-10">Admissions Now Open!</h2>
           <p className="text-lg text-gray-700 relative z-10">
-            KMM College of Arts & Science is now accepting applications for UG and PG programs for the 2025-2026
+            KMM Collage, Thrikkakara, Vazhakkala is now accepting applications for UG and PG programs for the 2025-2026
             academic year. Join us and be part of a thriving academic community.
           </p>
         </motion.div>

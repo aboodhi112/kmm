@@ -162,7 +162,7 @@ export default function NSSPage() {
             <div className="flex items-center gap-6">
               <div className="w-32 h-32 flex items-center justify-center">
   <img
-    src="\photos\hari.png"
+    src="\photos\harikrishnan.png"
     alt=""
     className="w-full h-full object-contain"
   />

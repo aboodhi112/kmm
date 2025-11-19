@@ -23,7 +23,7 @@ const departments: Record<
     description: "Excellence in Commerce Education",
     established: "2022",
     overview:
-      "Established in 2022, the Department of Commerce is in the self-financing stream with three different programmes in Commerce. Our Department provides Bachelors of Commerce (B.Com) Program specializing in relevant areas like B.com Model I Finance and Taxation, Model II Finance and Taxation and Model II Computer Application. In 2024, our department transitioned from the Choice Based Credit and Semester System (CBCSS) to the Four-Year Undergraduate (Honours) Program. We proudly offer three specialized undergraduate programs: Finance and Taxation, Logistics and Accounting. The course enhances students with skills and knowledge in verbal and interpersonal communication, critical thinking, time management, and problem-solving skills.",
+      "Established in 2022, the Department of Commerce is in the self-financing stream with three different programmes in Commerce. In 2024, the department adopted the Four-Year Undergraduate (Honours) Program under the new academic framework. We proudly offer three specialized undergraduate programs: Finance and Taxation, Logistics, and Accounting. The course enhances students with skills and knowledge in verbal and interpersonal communication, critical thinking, time management, and problem-solving skills.",
     vision: "To produce well-rounded, skilled, and ethically conscious commerce graduates.",
     mission:
       "To provide progressive, liberal and prolific education to students from all section of the community. To promote assorted skills, build character and societal consciousness.",
@@ -48,14 +48,14 @@ const departments: Record<
     ],
     facilities: ["Computer Lab", "Library", "Commerce Resource Center", "Accounting Lab"],
     faculty: [
-      { name: "Mrs Sindhu K Chandran", designation: "Head of the Department", photo: "/photos/sindhu.png" },
-      { name: "Mrs Rejitha K R", designation: "Assistant Professor", photo: "/photos/rejitha.png" },
-      { name: "Mrs Hazeenamol V A", designation: "Assistant Professor", photo: "/photos/hazeena.png" },
-      { name: "Mrs Praseetha R Nair", designation: "Assistant Professor", photo: "/photos/praseetha.png" },
-      { name: "Mrs Hima Hariharan", designation: "Assistant Professor", photo: "/photos/hima.png" },
+      { name: "Ms Sindhu K Chandran", designation: "Head of the Department", photo: "/photos/sindhu.png" },
+      { name: "Ms Rejitha K R", designation: "Assistant Professor", photo: "/photos/rejitha.png" },
+      { name: "Ms Hazeenamol V A", designation: "Assistant Professor", photo: "/photos/hazeena.png" },
+      { name: "Ms Praseetha R Nair", designation: "Assistant Professor", photo: "/photos/praseetha.png" },
+      { name: "Ms Hima Hariharan", designation: "Assistant Professor", photo: "/photos/hima.png" },
       { name: "Ms Shahina P S", designation: "Assistant Professor", photo: "/photos/shahina.png" },
-      { name: "Mrs Hasheena K H", designation: "Assistant Professor", photo: "/photos/hasheena.png" },
-      { name: "Mrs Ashida K A", designation: "Assistant Professor", photo: "/photos/ashida.png" },
+      { name: "Ms Hasheena K H", designation: "Assistant Professor", photo: "/photos/hasheena.png" },
+      { name: "Ms Ashida K A", designation: "Assistant Professor", photo: "/photos/ashida.png" },
     ],
   },
 
@@ -100,7 +100,7 @@ const departments: Record<
     title: "Department of Business Administration",
     description: "Management and business studies",
     overview:
-      "The revised BBA program at Mahatma Gandhi University (MGU-BBA), aligned with AICTE norms, offers flexible pathways, including a three-year BBA, four-year BBA (Honours), and BBA (Honours with Research). This curriculum equips students with expertise across key management domains, fostering analytical, managerial, and entrepreneurial skills. Graduates can pursue careers in Marketing, Finance, Sales, and Government sectors or advance to higher studies like an MBA. The program's comprehensive approach prepares future leaders to excel in dynamic business environments and take on strategic roles in large organizations.",
+      "The revised BBA program at Mahatma Gandhi University (MGU-BBA), aligned with AICTE norms, offers flexible pathways, including a four-year BBA (Honours), and BBA (Honours with Research). This curriculum equips students with expertise across key management domains, fostering analytical, managerial, and entrepreneurial skills. Graduates can pursue careers in Marketing, Finance, Sales, and Government sectors or advance to higher studies like an MBA. The program's comprehensive approach prepares future leaders to excel in dynamic business environments and take on strategic roles in large organizations.",
     vision:
       "To be a leading centre for management education, fostering ethical leadership, innovation, and social responsibility.",
     mission:
@@ -121,8 +121,8 @@ const departments: Record<
     ],
     facilities: ["Business Lab", "Computer Lab", "Library", "Conference Room", "Case Study Center"],
     faculty: [
-      { name: "Mr. Harikrishnan V S", designation: "Head of the Department", photo: "/photos/harikrishnan.png" },
-      { name: "Mr. Rejeesh K K", designation: "Assistant Professor", photo: "/photos/rejeesh.png" },
+      { name: "Mr. Rejeesh K K", designation: "Head of the Department", photo: "/photos/rejeesh.png" },
+      { name: "Mr. Harikrishnan V S", designation: "Assistant Professor", photo: "/photos/harikrishnan.png" },
       { name: "Ms. Shoma R", designation: "Assistant Professor", photo: "/photos/shoma.png" },
       { name: "Ms. Abhirami A G", designation: "Assistant Professor", photo: "/photos/abhirami.png" },
     ],
@@ -151,7 +151,7 @@ const departments: Record<
       { name: "Fahmida Aseez", designation: "Head of the Department", photo: "/photos/fahmida.png" },
       { name: "Abisha A A", designation: "Assistant Professor", photo: "/photos/abisha.png" },
       { name: "Saneesha", designation: "Assistant Professor", photo: "/photos/saneesha.png" },
-      { name: "Fathima Kondeth", designation: "Assistant Professor", photo: "/photos/fathima.png" },
+      { name: "Fathima Kondeth", designation: "Assistant Professor", photo: "/photos/fathimak.png" },
     ],
   },
 
@@ -176,7 +176,7 @@ const departments: Record<
       {
         name: "Fathima Raihanath",
         designation: "Assistant Professor, Department of Mathematics",
-        photo: "/photos/fathima-raihanath.png",
+        photo: "/photos/fathima.png",
       },
     ],
   },
