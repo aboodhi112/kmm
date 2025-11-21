@@ -144,7 +144,7 @@ export default function AcademicsPage() {
                 transition={{ duration: 0.5 }}
               >
                 <h3 className="font-bold text-blue-900 mb-2">Semester</h3>
-                <p className="text-gray-600">Odd Semester (July - December)</p>
+                <p className="text-gray-600">Even Semester (July - December)</p>
               </motion.div>
             </div>
 

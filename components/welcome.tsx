@@ -112,7 +112,7 @@ export default function Welcome() {
           <ScrollFade direction="right" delay={180}>
             <div className="space-y-3 md:space-y-4">
               <h3 className="text-xl md:text-2xl font-bold text-foreground">
-                KMM Collage, Thrikkakara, Vazhakkala
+                KMM College, Thrikkakara, Vazhakkala
               </h3>
 
               <p className="text-muted-foreground leading-relaxed text-sm md:text-base">

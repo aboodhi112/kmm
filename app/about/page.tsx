@@ -7,7 +7,7 @@ import AboutLeadership from "@/components/about-leadership"
 
 export const metadata = {
   title: "About Us - KMM College",
-  description: "Learn about KMM College of Arts and Science - AICTE Approved, NAAC Accredited Institution",
+  description: "Learn about KMM College Thrikkakara, Vazhakkala - AICTE Approved, Institution",
 }
 
 export default function AboutPage() {

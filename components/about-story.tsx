@@ -16,7 +16,7 @@ export default function AboutStory() {
     setContent({
       paragraph1:
         aboutContent.find((item) => item.title.includes("Paragraph 1"))?.content ||
-        "KMM Collage, Thrikkakara, Vazhakkala, Thrikkakara Vazhakkala, operates under the esteemed KMM Group of Institutions, affiliated with Mahatma Gandhi University, Kottayam...",
+        "KMM College, Thrikkakara Vazhakkala, operates under the esteemed KMM Group of Institutions, affiliated with Mahatma Gandhi University, Kottayam...",
       paragraph2:
         aboutContent.find((item) => item.title.includes("Paragraph 2"))?.content ||
         "KMM College commenced its academic journey in 2021-22...",

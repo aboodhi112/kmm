@@ -21,7 +21,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [closing, setClosing] = useState(false)
   const [announcement, setAnnouncement] = useState(
-    "KMM College of Arts and Science has been NAAC Accredited with B Grade."
+    "KMM College Thrikkakara, Vazhakkala is AICTE Approved."
   )
   const [shrink, setShrink] = useState(false)
   
