@@ -176,39 +176,7 @@ export default function FacilitiesClient() {
           })}
         </div>
 
-        {/* Highlights */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-r from-blue-900 to-blue-800 text-white p-12 rounded-lg mb-12 border-t-4 border-yellow-400"
-        >
-          <h2 className="text-3xl font-bold mb-8">Campus Highlights</h2>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {["25+", "CCTV", "100%", "12+"].map((num, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <p className="text-4xl font-bold mb-2">{num}</p>
-                <p>
-                  {i === 0 && "Acres of Green Campus"}
-                  {i === 1 && "24/7 Campus Security"}
-                  {i === 2 && "WiFi Coverage"}
-                  {i === 3 && "Seminar Rooms"}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+ 
 
         {/* REPORT ISSUE */}
         <motion.div

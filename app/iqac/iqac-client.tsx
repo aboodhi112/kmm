@@ -210,39 +210,7 @@ export default function IQACClient() {
         </div>
       </motion.div>
 
-      {/* ---------------- Counters ---------------- */}
-      <motion.div
-        variants={fadeVariant}
-        initial="hidden"
-        whileInView="visible"
-        exit="exit"
-        viewport={{ once: false }}
-        transition={{ duration: 0.6 }}
-        className="bg-blue-50 p-8 rounded-lg mb-12 border-2 border-yellow-400"
-      >
-        <h2 className="text-2xl font-bold text-blue-900 mb-4">NAAC Accreditation</h2>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="text-center p-6 bg-white rounded-lg shadow">
-            <p className="text-4xl font-bold text-red-600 mb-2">B Grade</p>
-            <p className="font-semibold text-blue-900">Current Accreditation</p>
-          </div>
-
-          <div className="text-center p-6 bg-white rounded-lg shadow">
-            <p className="text-4xl font-bold text-blue-600 mb-2">
-              <AnimatedCounter target={26} />/40
-            </p>
-            <p className="font-semibold text-blue-900">CGPA Score</p>
-          </div>
-
-          <div className="text-center p-6 bg-white rounded-lg shadow">
-            <p className="text-4xl font-bold text-green-600 mb-2">
-              <AnimatedCounter target={2023} />
-            </p>
-            <p className="font-semibold text-blue-900">Last Accredited Year</p>
-          </div>
-        </div>
-      </motion.div>
+    
 
       {/* ---------------- Metrics ---------------- */}
       <motion.div
@@ -334,18 +302,18 @@ export default function IQACClient() {
         <div className="grid md:grid-cols-3 gap-6">
           <div>
             <p className="font-semibold mb-2">Coordinator</p>
-            <p className="text-sm">Dr. Rajesh Kumar</p>
-            <p className="text-sm">📧 iqac@kmm.edu.in</p>
+            <p className="text-sm">Ms. S Arya</p>
+            <p className="text-sm">📧 kmmv.iqac@gmail.com</p>
           </div>
           <div>
             <p className="font-semibold mb-2">Phone</p>
-            <p className="text-sm">0484-2577567</p>
-            <p className="text-sm">9037002130</p>
+            <p className="text-sm">85906013437</p>
+            <p className="text-sm">7034735190</p>
           </div>
           <div>
             <p className="font-semibold mb-2">Location</p>
-            <p className="text-sm">IQAC Office, Main Building</p>
-            <p className="text-sm">Campus, Thrikkakara</p>
+            <p className="text-sm">IQAC Office, KMM College</p>
+            <p className="text-sm">Campus, Thrikkakara, Vazhakkala</p>
           </div>
         </div>
       </motion.div>

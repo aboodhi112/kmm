@@ -30,7 +30,7 @@ export default function ContactClientPage() {
     const content = getCMSContent("contact")
     setContactInfo({
       phones: content.find((i) => i.title.toLowerCase().includes("phone"))?.content || "8590601343, 9895545924",
-      email: content.find((i) => i.title.toLowerCase().includes("email"))?.content || "info@kmmcollege.edu.in",
+      email: content.find((i) => i.title.toLowerCase().includes("email"))?.content || "info.kmmcollege@gmail.com",
       location:
         content.find((i) => i.title.toLowerCase().includes("location"))?.content ||
         "KMM College Thrikkakara Vazhakkala, Civil Lane road, Friendship Enclave B Block, Padamugal, Vazhakkala, Ernakulam 682021",

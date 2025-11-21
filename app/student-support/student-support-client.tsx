@@ -23,73 +23,73 @@ export default function StudentSupportClient() {
       title: "Academic Counseling",
       description: "Personalized academic guidance and mentoring to help students succeed in their studies.",
       icon: BookOpen,
-      contact: "academics@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Mental Health Counseling",
       description: "Professional mental health support and counseling services for student well-being.",
       icon: Brain,
-      contact: "counseling@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Career Guidance",
       description: "Career counseling, job placement assistance, and professional development programs.",
       icon: Briefcase,
-      contact: "careers@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Disability Support",
       description: "Specialized services and accommodations for students with disabilities.",
       icon: Accessibility,
-      contact: "disability@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Financial Aid",
       description: "Scholarships, bursaries, and financial assistance programs for deserving students.",
       icon: DollarSign,
-      contact: "financial-aid@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Sports & Recreation",
       description: "Athletic programs, fitness facilities, and recreational activities for holistic development.",
       icon: Trophy,
-      contact: "sports@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Hostel Services",
       description: "Comfortable on-campus accommodation with safety and support services.",
       icon: Home,
-      contact: "hostel@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Health Services",
       description: "Medical facilities, health checkups, and wellness programs for students.",
       icon: Stethoscope,
-      contact: "health@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Library Services",
       description: "Access to extensive digital and physical resources for research and learning.",
       icon: Library,
-      contact: "library@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "IT Support",
       description: "Technical assistance with campus IT infrastructure and digital platforms.",
       icon: Laptop,
-      contact: "itsupport@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "International Student Support",
       description: "Specialized services for international students including visa assistance.",
       icon: Globe,
-      contact: "international@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
     {
       title: "Alumni Network",
       description: "Connection with college alumni for mentoring and networking opportunities.",
       icon: Handshake,
-      contact: "alumni@kmm.edu.in",
+      contact: "info.kmmcollege@gmail.com",
     },
   ]
 
@@ -150,14 +150,14 @@ export default function StudentSupportClient() {
           <div className="text-center">
             <p className="text-5xl mb-3">📞</p>
             <p className="text-lg font-bold mb-2">Helpline</p>
-            <p className="text-sm">0484-2577567</p>
+            <p className="text-sm">8590601343</p>
             <p className="text-xs text-blue-200">24/7 Support</p>
           </div>
 
           <div className="text-center">
             <p className="text-5xl mb-3">📧</p>
             <p className="text-lg font-bold mb-2">Email</p>
-            <p className="text-sm">support@kmm.edu.in</p>
+            <p className="text-sm">info.kmmcollege@gmail.com</p>
             <p className="text-xs text-blue-200">Responds within 24 hours</p>
           </div>
 
