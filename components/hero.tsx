@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function Hero() {
+  // --- LOGIC FOR MOBILE SLIDER ---
   const [currentSlide, setCurrentSlide] = useState(0)
   const [visible, setVisible] = useState(false)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
-
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const slides = [
@@ -42,60 +42,109 @@ export default function Hero() {
 
   return (
     <div
-      className={`relative h-screen -mt-[60px] md:-mt-[128px] overflow-hidden bg-muted transition-opacity duration-700 ease-out ${
+      className={`relative h-screen -mt-[60px] md:-mt-[128px] overflow-hidden bg-black transition-opacity duration-700 ease-out ${
         visible ? "opacity-100" : "opacity-0"
       }`}
-      onClick={nextSlide}
-      onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
-      onTouchEnd={(e) => {
-        if (touchStartX === null) return
-        const dx = e.changedTouches[0].clientX - touchStartX
-        if (dx > 40) prevSlide()
-        if (dx < -40) nextSlide()
-        setTouchStartX(null)
-      }}
     >
-      <AnimatePresence>
-        <motion.div
-          key={currentSlide}
-          className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+      
+      {/* ========================================= */}
+      {/* OPTION 1: DESKTOP VIEW (Video Background) */}
+      {/* ========================================= */}
+      <div className="hidden md:block absolute inset-0 w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
         >
-          <img
-            src={slides[currentSlide].image}
-            alt={slides[currentSlide].caption}
-            className="w-full h-full object-cover"
-          />
+          {/* Ensure you have this video file in your public folder */}
+          <source src="/college-intro.mp4" type="video/mp4" />
+        </video>
 
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
+        {/* Desktop Overlay & Static Text */}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-center max-w-5xl"
+          >
+            <h1 className="text-white font-bold text-6xl lg:text-7xl drop-shadow-2xl mb-6">
+              Welcome to <br />
+              <span className="text-blue-200">KMM College Vazhakkala</span>
+            </h1>
+            <p className="text-white/90 text-2xl font-medium drop-shadow-md">
+              Learn. Lead. Excel.
+            </p>
+          </motion.div>
+        </div>
+      </div>
 
-          <motion.h2
-            key={slides[currentSlide].caption}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-            className="absolute inset-0 flex items-center justify-center text-white text-center font-bold drop-shadow-2xl whitespace-normal px-4 text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
-            dangerouslySetInnerHTML={{ __html: slides[currentSlide].caption }}
-          />
-        </motion.div>
-      </AnimatePresence>
 
-      <button
-        onClick={(e) => { e.stopPropagation(); prevSlide() }}
-        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 active:bg-white/40 text-white p-2 md:p-3 rounded-full transition-all duration-200"
+      {/* ========================================= */}
+      {/* OPTION 2: MOBILE VIEW (Image Slider)      */}
+      {/* ========================================= */}
+      <div 
+        className="block md:hidden absolute inset-0 w-full h-full"
+        onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+        onTouchEnd={(e) => {
+          if (touchStartX === null) return
+          const dx = e.changedTouches[0].clientX - touchStartX
+          if (dx > 40) prevSlide()
+          if (dx < -40) nextSlide()
+          setTouchStartX(null)
+        }}
       >
-        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-      </button>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <img
+              src={slides[currentSlide].image}
+              alt="Slide"
+              className="w-full h-full object-cover"
+            />
+            
+            {/* Mobile Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
 
-      <button
-        onClick={(e) => { e.stopPropagation(); nextSlide() }}
-        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 active:bg-white/40 text-white p-2 md:p-3 rounded-full transition-all duration-200"
-      >
-        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-      </button>
+            {/* Mobile Changing Text */}
+            <motion.div
+               key={`text-${currentSlide}`}
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="absolute inset-0 flex items-center justify-center px-4"
+            >
+              <h2
+                className="text-white text-center font-bold text-4xl drop-shadow-xl leading-tight"
+                dangerouslySetInnerHTML={{ __html: slides[currentSlide].caption }}
+              />
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Mobile Navigation Buttons */}
+        <button
+          onClick={(e) => { e.stopPropagation(); prevSlide() }}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm text-white p-2 rounded-full"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); nextSlide() }}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm text-white p-2 rounded-full"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
+
     </div>
   )
 }
